@@ -1,7 +1,6 @@
 ﻿using Day39CaseStudy.DataAccess;
 using Day39CaseStudy.DataAccess.Models;
 using Day39CaseStudy.Services.DbService.Interfaces;
-
 namespace Day39CaseStudy.Services.DbService;
 
 public class CrudBrandService : ICrudService<Brand>
@@ -9,8 +8,6 @@ public class CrudBrandService : ICrudService<Brand>
     public void Add(Brand brand)
     {
         using var context = new SampleStoreDbContext();
-
-     
 
         context.Brands.Add(brand);
         context.SaveChanges();
@@ -20,7 +17,9 @@ public class CrudBrandService : ICrudService<Brand>
     {
         using var context = new SampleStoreDbContext();
 
-        var brand = from brand_items in context.Brands.ToList() select brand_items;
+        var brand = from  brand_items 
+                    in  context.Brands.ToList()
+                    select brand_items;
 
         return brand;
     }
@@ -39,10 +38,10 @@ public class CrudBrandService : ICrudService<Brand>
 
         //var brand = context.Brands.SingleOrDefault(b => b.BrandName == brandName);
 
-        var brand = from b
+        var brand = from getBrand
                  in context.Brands 
-                 where b.BrandName == brandName 
-                 select b;
+                 where getBrand.BrandName == brandName 
+                 select getBrand;
 
         return brand.SingleOrDefault();
     }

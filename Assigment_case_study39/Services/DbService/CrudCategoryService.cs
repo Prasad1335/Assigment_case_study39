@@ -1,48 +1,60 @@
 ﻿using Day39CaseStudy.DataAccess;
 using Day39CaseStudy.DataAccess.Models;
 using Day39CaseStudy.Services.DbService.Interfaces;
-
 namespace Day39CaseStudy.Services.DbService;
 
 public class CrudCategoryService : ICrudService<Category>
 {
-
-    readonly ICrudService<Category>_categoryService;
     public void Add(Category category)
     {
-
         using var context = new SampleStoreDbContext();
         context.Categories.Add(category);
         context.SaveChanges();
-
     }
 
-    public void Delete(int entityId)
+    public void Delete(int CategoryId)
     {
+        using var context = new SampleStoreDbContext();
 
-      
+        var category = from delCat
+                  in context.Categories
+                       where delCat.CategoryId == CategoryId
+                    select delCat;
+
+        if (category == null)
+        {
+            Console.WriteLine($"BrandId {CategoryId} not found");
+            return;
+        }
+
+        context.Categories.Remove(category.SingleOrDefault());
+        context.SaveChanges();
     }
 
     public IEnumerable<Category> GetAll()
     {
         using var context = new SampleStoreDbContext();
-
-       // return context.Categories.ToList();
-
-
-
-        var category = from cat in context.Categories.ToList() select cat;
-
-        return category;
+        
+        var cat = from categoryes
+                   in context.Categories.ToList()
+                  select categoryes;
+        return cat;
     }
 
-    public Category GetByName(string entityName)
+    public Category GetByName(string CategoryName)
     {
-        throw new ArgumentNullException();
+        using var context = new SampleStoreDbContext();
+
+        var cats = from getName
+                   in context.Categories
+                   where getName.CategoryName == CategoryName
+                  select getName;
+        return cats.SingleOrDefault();
+ 
     }
 
     public void Update(Category entity)
     {
-        
+
     }
 }

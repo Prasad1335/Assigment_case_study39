@@ -24,17 +24,14 @@ public class Product
 
     [ForeignKey("CategoryId")]
     public Category Category { get; set; }
-
     [Column("model_year")]
     public short ModelYear { get; set; }
-
     [Column("list_price")]
     public decimal ListPrice { get; set; }
-
-    public static string Header => "ProductId, ProductName, BrandId, BrandName, CategoryId, CategoryName, ModelYear, ListPrice";
+    public static string Header => $"| ProductId |           ProductName                                 | BrandId |   BrandName    | CategoryId |      CategoryName     | ModelYear |  ListPrice   |";
 
     public override string ToString()
     {
-        return $"{ProductId}, {ProductName}, {BrandId}, {Brand?.BrandName}, {CategoryId}, {Category?.CategoryName}, {ModelYear}, {ListPrice}";
+        return $"|     {ProductId,(-3)}   | {ProductName,(-53)} |    {BrandId,(-5)}| {Brand?.BrandName,(-15)}|     {CategoryId,(-5)}  |  {Category?.CategoryName,(-20)} |   {ModelYear,(-5)}   |   {ListPrice,(-8)}   |";
     }
 }

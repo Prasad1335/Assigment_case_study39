@@ -56,7 +56,7 @@ public class MenuService : IMenuService
             var selectedMainMenuText = GetMenuText(_mainMenuItems[menuId - 1]);
             var subMenuId = ShowMenuListing(selectedMainMenuText, _subMenuItems);
 
-            if (subMenuId == 0 || subMenuId == -1) 
+            if (subMenuId == 0 || subMenuId == -1)
                 continue;
 
             menuOption = CalculateMenuOption(menuId, subMenuId);
@@ -88,7 +88,7 @@ public class MenuService : IMenuService
         var minEnumValue = Enum.GetValues(typeof(MenuOptions)).Cast<int>().Min();
         var maxEnumValue = Enum.GetValues(typeof(MenuOptions)).Cast<int>().Max();
 
-        if ((int) selectedMenuOption >= minEnumValue && (int) selectedMenuOption <= maxEnumValue)
+        if ((int)selectedMenuOption >= minEnumValue && (int)selectedMenuOption <= maxEnumValue)
             return selectedMenuOption;
 
         ShowErrorMessage("Invalid Menu Item Selected");

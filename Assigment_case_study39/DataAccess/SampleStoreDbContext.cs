@@ -21,7 +21,7 @@ public class SampleStoreDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Data Source=WAIANGDESK13\MSSQLSERVER01;Initial Catalog=SampleStore;Integrated Security=True");
+        optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-IU72N5R;Initial Catalog=SampleStore;Integrated Security=True");
 
     }
 }

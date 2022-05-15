@@ -35,30 +35,32 @@ public class UserInterfaceCrudCategoryService
 
     public void Update()
     {
-        Console.WriteLine("Updating existing Product");
+        Console.WriteLine("Updating existing category");
         Console.WriteLine("-----------------------");
     }
     public void Delete()
     {
-        Console.WriteLine("Deleting existing Product");
+        Console.WriteLine("Deleting existing category");
         Console.WriteLine("-----------------------");
     }
     public void Show()
     {
         var cats = _categoryService.GetAll();
-        Console.WriteLine("Product List");
+        Console.WriteLine("-------------------------------------");
+        Console.WriteLine("|         Category List             |");
         Console.WriteLine("-------------------------------------");
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine(Category.Header);
-        Console.ResetColor();
         Console.WriteLine("-------------------------------------");
+        Console.ResetColor();
         foreach (var cat in cats)
         {
             Console.ForegroundColor = ConsoleColor.Red;
 
             Console.WriteLine($"|   {cat.CategoryId,(-7)}  | {cat.CategoryName,(-20)} |");
-            Console.ResetColor();
         }
             Console.WriteLine("-------------------------------------");
+        Console.ResetColor();
+
     }
 }

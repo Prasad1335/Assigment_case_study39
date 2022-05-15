@@ -57,7 +57,7 @@ public class UserInterfaceCrudBrandService
         var changedBrandNameText = Console.ReadLine();
 
         brand.BrandName = changedBrandNameText;
-        
+
         _brandService.Update(brand);
     }
 
@@ -70,7 +70,7 @@ public class UserInterfaceCrudBrandService
         var brandIdText = Console.ReadLine();
 
         var brandId = int.Parse(brandIdText);
-        
+
         try
         {
             _brandService.Delete(brandId);
@@ -86,16 +86,21 @@ public class UserInterfaceCrudBrandService
     public void Show()
     {
         var brands = _brandService.GetAll();
-
-        Console.WriteLine("Brand List");
-        Console.WriteLine("----------");
-
+        Console.WriteLine("-----------------------------");
+        Console.WriteLine("|          Brand List       |");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("-----------------------------");
         Console.WriteLine(Brand.Header);
-        Console.WriteLine("------------------");
+        Console.WriteLine("-----------------------------");
+        Console.ResetColor();
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+
         foreach (var brand in brands)
         {
             Console.WriteLine(brand);
         }
-        Console.WriteLine("------------------");
+        Console.WriteLine("-----------------------------");
+        Console.ResetColor();
+
     }
 }

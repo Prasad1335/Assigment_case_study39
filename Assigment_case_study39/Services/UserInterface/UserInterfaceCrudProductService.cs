@@ -92,7 +92,7 @@ public class UserInterfaceCrudProductService
         Console.Write("Enter List Price to change: ");
         var listPriceText = Console.ReadLine();
         product.ListPrice = int.Parse(listPriceText);
-        
+
         _productService.Update(product);
     }
 
@@ -111,16 +111,20 @@ public class UserInterfaceCrudProductService
     public void Show()
     {
         var products = _productService.GetAll();
-
-        Console.WriteLine("Product List");
-        Console.WriteLine("----------");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("|                           Product List                                                                                                                       |");
+        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         Console.WriteLine(Product.Header);
-        Console.WriteLine("------------------");
+        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+
         foreach (var product in products)
         {
             Console.WriteLine(product);
         }
-        Console.WriteLine("------------------");
+        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.ResetColor();
     }
 }
