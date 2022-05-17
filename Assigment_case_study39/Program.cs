@@ -2,12 +2,6 @@
 using Day39CaseStudy.Services.UserInterface;
 
 Console.WriteLine("***************************************************** WELCOME **********************************************");
-/*
-Requirement: 
-1. Create a CRUD Screen for Brand & Product
-2. Display a report of brand wise products
- */
-
 
 IMenuService menuService = new MenuService();
 var uiBrandService = new UserInterfaceCrudBrandService();
@@ -59,5 +53,4 @@ do
             uiCategoryService.Show();
             break;
     }
-
 } while (true);

@@ -111,7 +111,9 @@ public class MenuService : IMenuService
             Console.WriteLine(GetMenuText(mainMenuItem));
 
         Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.Write("Select an option: ");
+
+        Console.Write("Select an option: >> ");
+
         var selectedMenu = Console.ReadKey();
         Console.ResetColor();
 
@@ -126,7 +128,8 @@ public class MenuService : IMenuService
 
     private static void ShowTitle(string title)
     {
-        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.ForegroundColor = ConsoleColor.Yellow;
+
         var line = new string('-', title.Length);
         Console.WriteLine(line);
         Console.WriteLine(title);

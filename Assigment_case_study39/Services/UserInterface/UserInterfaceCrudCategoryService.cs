@@ -1,13 +1,10 @@
 ﻿using Day39CaseStudy.DataAccess.Models;
 using Day39CaseStudy.Services.DbService.Interfaces;
 using Day39CaseStudy.Services.Factory;
-
 namespace Day39CaseStudy.Services.UserInterface;
 
 public class UserInterfaceCrudCategoryService
 {
-
-
     readonly ICrudService<Category> _categoryService;
 
     public UserInterfaceCrudCategoryService()
@@ -24,7 +21,6 @@ public class UserInterfaceCrudCategoryService
         var TextCategoryName = Console.ReadLine();
 
         var category = new Category { CategoryName = TextCategoryName };
-
         _categoryService.Add(category);
     }
 
@@ -53,13 +49,14 @@ public class UserInterfaceCrudCategoryService
         Console.WriteLine(Category.Header);
         Console.WriteLine("-------------------------------------");
         Console.ResetColor();
+
         foreach (var cat in cats)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-
             Console.WriteLine($"|   {cat.CategoryId,(-7)}  | {cat.CategoryName,(-20)} |");
-        }
             Console.WriteLine("-------------------------------------");
+           
+        }
         Console.ResetColor();
 
     }

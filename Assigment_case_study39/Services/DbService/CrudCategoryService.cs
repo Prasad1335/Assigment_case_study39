@@ -15,18 +15,16 @@ public class CrudCategoryService : ICrudService<Category>
     public void Delete(int CategoryId)
     {
         using var context = new SampleStoreDbContext();
-
         var category = from delCat
-                  in context.Categories
+                         in context.Categories
                        where delCat.CategoryId == CategoryId
-                    select delCat;
+                       select delCat;
 
         if (category == null)
         {
             Console.WriteLine($"BrandId {CategoryId} not found");
             return;
         }
-
         context.Categories.Remove(category.SingleOrDefault());
         context.SaveChanges();
     }
@@ -34,7 +32,6 @@ public class CrudCategoryService : ICrudService<Category>
     public IEnumerable<Category> GetAll()
     {
         using var context = new SampleStoreDbContext();
-        
         var cat = from categoryes
                    in context.Categories.ToList()
                   select categoryes;
@@ -42,19 +39,19 @@ public class CrudCategoryService : ICrudService<Category>
     }
 
     public Category GetByName(string CategoryName)
-    {
+    {   
         using var context = new SampleStoreDbContext();
-
         var cats = from getName
                    in context.Categories
                    where getName.CategoryName == CategoryName
-                  select getName;
+                   select getName;
         return cats.SingleOrDefault();
- 
     }
 
-    public void Update(Category entity)
+    public void Update(Category category)
     {
-
+        using var context = new SampleStoreDbContext();
+        context.Categories.Update(category);
+        context.SaveChanges();
     }
 }

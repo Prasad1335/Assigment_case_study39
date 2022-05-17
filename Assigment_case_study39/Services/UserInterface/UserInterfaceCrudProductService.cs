@@ -1,7 +1,6 @@
 ﻿using Day39CaseStudy.DataAccess.Models;
 using Day39CaseStudy.Services.DbService.Interfaces;
 using Day39CaseStudy.Services.Factory;
-
 namespace Day39CaseStudy.Services.UserInterface;
 
 public class UserInterfaceCrudProductService
@@ -91,8 +90,8 @@ public class UserInterfaceCrudProductService
 
         Console.Write("Enter List Price to change: ");
         var listPriceText = Console.ReadLine();
-        product.ListPrice = int.Parse(listPriceText);
 
+        product.ListPrice = int.Parse(listPriceText);
         _productService.Update(product);
     }
 
@@ -103,28 +102,30 @@ public class UserInterfaceCrudProductService
 
         Console.Write("Enter the Product Id to delete: ");
         var productIdText = Console.ReadLine();
-        var productId = int.Parse(productIdText);
 
+        var productId = int.Parse(productIdText);
         _productService.Delete(productId);
     }
 
     public void Show()
     {
+        string s = new string('-', 160);
         var products = _productService.GetAll();
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine(s);
         Console.WriteLine("|                           Product List                                                                                                                       |");
-        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine(s);
 
         Console.WriteLine(Product.Header);
-        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        Console.WriteLine(s);
         Console.ForegroundColor = ConsoleColor.Yellow;
 
         foreach (var product in products)
         {
             Console.WriteLine(product);
+            Console.WriteLine(s);
         }
-        Console.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------");
         Console.ResetColor();
+
     }
 }

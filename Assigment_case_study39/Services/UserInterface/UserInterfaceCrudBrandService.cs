@@ -6,15 +6,11 @@ namespace Day39CaseStudy.Services.UserInterface;
 
 public class UserInterfaceCrudBrandService
 {
-    //CrudBrandService _brandService;           // TIGHTLY BOUND. VERY BAD
-
     readonly ICrudService<Brand> _brandService; // LOOSELY BOUND. VERY GOOD
 
     public UserInterfaceCrudBrandService()
     {
-        //_brandService = new CrudBrandService();       // TIGHTLY BOUND. VERY BAD
-
-        _brandService = CrudFactory.Create<Brand>();    // LOOSELY BOUND. VERY GOOD
+        _brandService = CrudFactory.Create<Brand>();
     }
 
     public void Add()
@@ -22,11 +18,10 @@ public class UserInterfaceCrudBrandService
         Console.WriteLine("Adding New Brand");
         Console.WriteLine("----------------");
 
-        Console.Write("Enter Brand Name: ");
+        Console.Write("Enter Brand Name: >> ");
         var brandNameText = Console.ReadLine();
 
         var brand = new Brand { BrandName = brandNameText };
-
         _brandService.Add(brand);
     }
 
@@ -57,16 +52,14 @@ public class UserInterfaceCrudBrandService
         var changedBrandNameText = Console.ReadLine();
 
         brand.BrandName = changedBrandNameText;
-
         _brandService.Update(brand);
     }
-
     public void Delete()
     {
         Console.WriteLine("Deleting existing Brand");
         Console.WriteLine("-----------------------");
 
-        Console.Write("Enter the Brand Id to delete: ");
+        Console.Write("Enter the Brand Id to delete: >> ");
         var brandIdText = Console.ReadLine();
 
         var brandId = int.Parse(brandIdText);
@@ -98,9 +91,9 @@ public class UserInterfaceCrudBrandService
         foreach (var brand in brands)
         {
             Console.WriteLine(brand);
-        }
-        Console.WriteLine("-----------------------------");
-        Console.ResetColor();
+            Console.WriteLine("-----------------------------");
 
+        }
+        Console.ResetColor();
     }
 }
