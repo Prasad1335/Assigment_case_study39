@@ -1,34 +1,36 @@
 ﻿using Day39CaseStudy.DataAccess;
 using Day39CaseStudy.DataAccess.Models;
 using Day39CaseStudy.Services.DbService.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace Day39CaseStudy.Services.DbService;
 
 public class CrudBrandService : ICrudService<Brand>
 {
-    public void Add(Brand brand)
+    public async Task AddAsync(Brand brand)
     {
         using var context = new SampleStoreDbContext();
-        context.Brands.Add(brand);
-        context.SaveChanges();
+        await context.Brands.AddAsync(brand);
+        await context.SaveChangesAsync();
     }
 
-    public IEnumerable<Brand> GetAll()
+    public async Task<IEnumerable<Brand>> GetAllAsync()
     {
         using var context = new SampleStoreDbContext();
         var brand = from getBrand
-                   in context.Brands.ToList()
+                   in context.Brands
                     select getBrand;
-        return brand;
+        return await brand.ToListAsync();
     }
 
-    public void Update(Brand brand)
+    public async Task UpdateAsync(Brand brand)
     {
         using var context = new SampleStoreDbContext();
         context.Brands.Update(brand);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
     }
 
-    public Brand GetByName(string brandName)
+    public async Task<Brand> GetByNameAsync(string brandName)
     {
         using var context = new SampleStoreDbContext();
         //var brand = context.Brands.SingleOrDefault(b => b.BrandName == brandName);
@@ -36,10 +38,10 @@ public class CrudBrandService : ICrudService<Brand>
                     in context.Brands
                     where getBrand.BrandName == brandName
                     select getBrand;
-        return brand.SingleOrDefault();
+        return await brand.SingleOrDefaultAsync();
     }
 
-    public void Delete(int brandId)
+    public async Task DeleteAsync(int brandId)
     {
         using var context = new SampleStoreDbContext();
         // var brand = context.Brands.Find(brandId);
@@ -54,7 +56,7 @@ public class CrudBrandService : ICrudService<Brand>
             return;
         }
 
-        context.Brands.Remove(brand.SingleOrDefault());
-        context.SaveChanges();
+        context.Brands.Remove(await brand.SingleOrDefaultAsync());
+        await context.SaveChangesAsync();
     }
 }

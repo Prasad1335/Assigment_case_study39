@@ -12,7 +12,7 @@ public class UserInterfaceCrudCategoryService
         _categoryService = CrudFactory.Create<Category>();    // LOOSELY BOUND. VERY GOOD
     }
 
-    public void Add()
+    public async Task AddAsync()
     {
         Console.WriteLine("**** Adding new Category ****");
         Console.WriteLine("-----------------------------");
@@ -21,27 +21,62 @@ public class UserInterfaceCrudCategoryService
         var TextCategoryName = Console.ReadLine();
 
         var category = new Category { CategoryName = TextCategoryName };
-        _categoryService.Add(category);
+       await  _categoryService.AddAsync(category);
     }
 
-    public IEnumerable<Category> GetAll()
+    public async Task<IEnumerable<Category>> GetAllAsync()
     {
-        return _categoryService.GetAll();
+        return await _categoryService.GetAllAsync();
     }
 
-    public void Update()
+    public async Task UpdateAsync()
     {
         Console.WriteLine("Updating existing category");
         Console.WriteLine("-----------------------");
+
+        Console.Write("Enter category Name to Update: ");
+        var categoryNameText = Console.ReadLine();
+
+        var cat = await _categoryService.GetByNameAsync(categoryNameText);
+
+        if (cat == null)
+        {
+            Console.WriteLine($"category Name {categoryNameText} not found!!");
+            return;
+        }
+
+        Console.WriteLine($"Found category: {cat}");
+
+        Console.Write("Enter category Name to change: ");
+        var changedCategoryNameText = Console.ReadLine();
+
+        cat.CategoryName = changedCategoryNameText;
+       await _categoryService.UpdateAsync(cat);
     }
-    public void Delete()
+    public async Task DeleteAsync()
     {
         Console.WriteLine("Deleting existing category");
         Console.WriteLine("-----------------------");
+
+        Console.Write("Enter the category Id to delete: >> ");
+        var categoryIdText = Console.ReadLine();
+
+        var CategoryId = int.Parse(categoryIdText);
+
+        try
+        {
+            await _categoryService.DeleteAsync(CategoryId);
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Delete category Failed!! {ex.Message}");
+            Console.ResetColor();
+        }
     }
-    public void Show()
+    public async Task Show()
     {
-        var cats = _categoryService.GetAll();
+        var cats = await _categoryService.GetAllAsync();
         Console.WriteLine("-------------------------------------");
         Console.WriteLine("|         Category List             |");
         Console.WriteLine("-------------------------------------");
@@ -58,6 +93,5 @@ public class UserInterfaceCrudCategoryService
            
         }
         Console.ResetColor();
-
     }
 }

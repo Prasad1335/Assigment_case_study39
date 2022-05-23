@@ -12,7 +12,7 @@ public class UserInterfaceCrudProductService
         _productService = CrudFactory.Create<Product>();
     }
 
-    public void Add()
+    public async Task AddAsync()
     {
         var product = new Product();
 
@@ -41,7 +41,7 @@ public class UserInterfaceCrudProductService
 
         try
         {
-            _productService.Add(product);
+            await _productService.AddAsync(product);
         }
         catch (Exception ex)
         {
@@ -49,12 +49,14 @@ public class UserInterfaceCrudProductService
         }
     }
 
-    public IEnumerable<Product> GetAll()
+    public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        return _productService.GetAll();
+        return await _productService.GetAllAsync();
     }
 
-    public void Update()
+  
+
+    public async Task UpdateAsync()
     {
         Console.WriteLine("Updating existing Product");
         Console.WriteLine("-----------------------");
@@ -62,7 +64,7 @@ public class UserInterfaceCrudProductService
         Console.Write("Enter Product Name to Update: ");
         var productNameText = Console.ReadLine();
 
-        var product = _productService.GetByName(productNameText);
+        var product = await _productService.GetByNameAsync(productNameText);
 
         if (product == null)
         {
@@ -92,10 +94,10 @@ public class UserInterfaceCrudProductService
         var listPriceText = Console.ReadLine();
 
         product.ListPrice = int.Parse(listPriceText);
-        _productService.Update(product);
+       await _productService.UpdateAsync(product);
     }
 
-    public void Delete()
+    public async Task DeleteAsync()
     {
         Console.WriteLine("Deleting existing Product");
         Console.WriteLine("-----------------------");
@@ -104,13 +106,13 @@ public class UserInterfaceCrudProductService
         var productIdText = Console.ReadLine();
 
         var productId = int.Parse(productIdText);
-        _productService.Delete(productId);
+        await _productService.DeleteAsync(productId);
     }
 
-    public void Show()
+    public async Task Show()
     {
         string s = new string('-', 160);
-        var products = _productService.GetAll();
+        var products = await _productService.GetAllAsync();
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine(s);
         Console.WriteLine("|                           Product List                                                                                                                       |");
@@ -122,6 +124,8 @@ public class UserInterfaceCrudProductService
 
         foreach (var product in products)
         {
+         
+         
             Console.WriteLine(product);
             Console.WriteLine(s);
         }

@@ -11,4 +11,6 @@ public class SampleStoreDbContext : DbContext
     {
         optionsBuilder.UseSqlServer(@"Data Source=WAIANGDESK13\MSSQLSERVER01;Initial Catalog=SampleStore;Integrated Security=True");
     }
+
+    
 }

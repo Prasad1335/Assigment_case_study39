@@ -2,9 +2,9 @@
 
 public interface ICrudService<T>
 {
-    void Add(T entity);
-    IEnumerable<T> GetAll();
-    void Update(T entity);
-    T GetByName(string entityName);
-    void Delete(int entityId);
+    Task AddAsync(T entity);
+    Task <IEnumerable<T>> GetAllAsync();
+    Task UpdateAsync(T entity);
+    Task<T> GetByNameAsync(string entityName);
+    Task DeleteAsync(int entityId);
 }

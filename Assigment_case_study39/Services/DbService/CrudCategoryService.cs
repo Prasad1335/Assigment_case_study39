@@ -1,20 +1,23 @@
 ﻿using Day39CaseStudy.DataAccess;
 using Day39CaseStudy.DataAccess.Models;
 using Day39CaseStudy.Services.DbService.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace Day39CaseStudy.Services.DbService;
 
 public class CrudCategoryService : ICrudService<Category>
 {
-    public void Add(Category category)
+    public async Task AddAsync(Category category)
     {
         using var context = new SampleStoreDbContext();
-        context.Categories.Add(category);
-        context.SaveChanges();
+        await context.Categories.AddAsync(category);
+        await context.SaveChangesAsync();
     }
 
-    public void Delete(int CategoryId)
+    public async Task DeleteAsync(int CategoryId)
     {
         using var context = new SampleStoreDbContext();
+        // var category = context.Categories.Find(CategoryId);
         var category = from delCat
                          in context.Categories
                        where delCat.CategoryId == CategoryId
@@ -22,36 +25,38 @@ public class CrudCategoryService : ICrudService<Category>
 
         if (category == null)
         {
-            Console.WriteLine($"BrandId {CategoryId} not found");
+            Console.WriteLine($"CategoryId {CategoryId} not found");
             return;
         }
-        context.Categories.Remove(category.SingleOrDefault());
-        context.SaveChanges();
+        context.Categories.Remove(await category.SingleOrDefaultAsync());
+       await context.SaveChangesAsync();
     }
 
-    public IEnumerable<Category> GetAll()
+    public async Task<IEnumerable<Category>> GetAllAsync()
     {
         using var context = new SampleStoreDbContext();
         var cat = from categoryes
-                   in context.Categories.ToList()
+                   in context.Categories
                   select categoryes;
-        return cat;
+        return await cat.ToListAsync();
     }
 
-    public Category GetByName(string CategoryName)
+    public async Task<Category> GetByNameAsync(string CategoryName)
     {   
         using var context = new SampleStoreDbContext();
+        //var category = context.Categories.SingleOrDefault(b => b.CategoryName == CategoryName);
+
         var cats = from getName
                    in context.Categories
                    where getName.CategoryName == CategoryName
                    select getName;
-        return cats.SingleOrDefault();
+        return await cats.SingleOrDefaultAsync();
     }
 
-    public void Update(Category category)
+    public async Task UpdateAsync(Category category)
     {
         using var context = new SampleStoreDbContext();
-        context.Categories.Update(category);
-        context.SaveChanges();
+         context.Categories.Update(category);
+        await context.SaveChangesAsync();
     }
 }

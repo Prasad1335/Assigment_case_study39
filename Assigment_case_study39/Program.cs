@@ -17,40 +17,40 @@ do
         case MenuOptions.Exit:
             return;
         case MenuOptions.BrandAdd:
-            uiBrandService.Add();
+           await uiBrandService.AddAsync();
             break;
         case MenuOptions.BrandUpdate:
-            uiBrandService.Update();
+           await uiBrandService.UpdateAsync();
             break;
         case MenuOptions.BrandDelete:
-            uiBrandService.Delete();
+           await uiBrandService.DeleteAsync();
             break;
         case MenuOptions.BrandShow:
-            uiBrandService.Show();
+          await uiBrandService.Show();
             break;
         case MenuOptions.ProductAdd:
-            uiProductService.Add();
+            await uiProductService.AddAsync();
             break;
         case MenuOptions.ProductUpdate:
-            uiProductService.Update();
+            await uiProductService.UpdateAsync();
             break;
         case MenuOptions.ProductDelete:
-            uiProductService.Delete();
+            await uiProductService.DeleteAsync();
             break;
         case MenuOptions.ProductShow:
-            uiProductService.Show();
+            await uiProductService.Show();
             break;
         case MenuOptions.CategoryAdd:
-            uiCategoryService.Add();
+            await uiCategoryService.AddAsync();
             break;
         case MenuOptions.CategoryUpdate:
-            uiCategoryService.Update();
+            await uiCategoryService.UpdateAsync();
             break;
         case MenuOptions.CategoryDelete:
-            uiCategoryService.Delete();
+            await uiCategoryService.DeleteAsync();
             break;
         case MenuOptions.CategoryShow:
-            uiCategoryService.Show();
+            await uiCategoryService.Show();
             break;
     }
 } while (true);
